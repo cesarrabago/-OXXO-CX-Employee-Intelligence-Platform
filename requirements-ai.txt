@@ -1,0 +1,21 @@
+# Dependencias de ai/ y etl/ que la imagen base de Airflow (apache/airflow:3.2.2)
+# NO trae instaladas. Sin esto, las tasks de classify_pending_tickets /
+# score_pending_tickets / predict_breach_risk fallarán al ejecutarse dentro
+# de Docker (aunque el DAG ya parsee bien con el PYTHONPATH configurado en
+# docker-compose.yaml).
+#
+# xgboost queda fijado a <3 a propósito: sla_breach_predictor.joblib se
+# serializó con una versión 2.x. Deserializarlo con xgboost 3.x falla con
+# "XGBoostError: input stream corrupted" (formato de serialización interno
+# incompatible entre majors). Confirmado en esta máquina: funcionó con
+# xgboost 2.1.4, falló con 3.3.0.
+#
+# scikit-learn: los .joblib de Fase B/C se pickle-earon con sklearn 1.8.0
+# (no el 1.4 que documenta el README — otra discrepancia doc-vs-realidad).
+# 1.9.x carga esos pickles bien (solo emite InconsistentVersionWarning, no
+# falla); confirmado en esta máquina. Evita bajar de 1.8 o el unpickle
+# puede romper de verdad, no solo advertir.
+joblib==1.3.2
+numpy>=1.26,<3.0
+scikit-learn>=1.8,<2.0
+xgboost>=2.0,<3.0

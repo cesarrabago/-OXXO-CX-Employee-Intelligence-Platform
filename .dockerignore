@@ -1,0 +1,6 @@
+logs/
+data/staging/
+data/samples/
+**/__pycache__/
+*.pyc
+.git/
