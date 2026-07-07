@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🏪 OXXO CX & Employee Intelligence Platform
+# 🏪 CX & Employee Intelligence Platform
 
 ### Plataforma de inteligencia operacional para atención al cliente y colaboradores con clasificación automática IA, análisis de sentimiento y predicción de SLA
 
